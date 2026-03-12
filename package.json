@@ -16,15 +16,16 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.2.0",
     "@fastify/jwt": "^10.0.0",
-    "@prisma/client": "^7.5.0",
+    "@prisma/client": "^6.19.2",
     "axios": "^1.13.6",
     "dotenv": "^17.3.1",
     "fastify": "^5.8.2",
-    "prisma": "^7.5.0",
+    "pg": "^8.20.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.4.0",
+    "prisma": "^6.19.2",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
