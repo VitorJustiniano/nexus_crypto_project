@@ -37,6 +37,7 @@ model WalletBalance {
   walletId          Int
   token             Token     @default(BRL)
   amount            Decimal   @default(0)
+                              @@unique([walletId, token])
 }
 
 enum Role {

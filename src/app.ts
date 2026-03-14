@@ -1,5 +1,9 @@
 import Fastify from 'fastify'
 import { healthRoutes } from './routes/health.routes'
+import { authRoutes } from './modules/auth/auth.routes'
+import jwt from '@fastify/jwt'
+import { env } from 'node:process'
+
 
 export async function buildApp() {
   const app = Fastify({
@@ -8,6 +12,10 @@ export async function buildApp() {
 
   // Routes
   await app.register(healthRoutes)
+  await app.register(authRoutes)
+  await app.register(jwt, {
+    secret: env.JWT_SECRET!})
 
   return app
 }
+
