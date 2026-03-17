@@ -20,14 +20,15 @@ model User {
   password  String    
   name      String?
   role      Role     @default(USER)
-  wallet    Wallet?    
+  wallet    Wallet?
+  ledger    Ledger[]    
 }
 
 model Wallet {
-  walletId        Int       @id @default(autoincrement())
-  user            User      @relation(fields: [userId], references: [userId])
-  userId          String    @unique
-  createdAt       DateTime  @default(now())
+  walletId        Int         @id @default(autoincrement())
+  user            User        @relation(fields: [userId], references: [userId])
+  userId          String      @unique
+  createdAt       DateTime    @default(now())
   walletBalance   WalletBalance[]
 }
 
@@ -40,6 +41,23 @@ model WalletBalance {
                               @@unique([walletId, token])
 }
 
+model idempotencyKey {
+  Key               String     @id
+  datacreated       DateTime   @default(now())
+}
+
+model Ledger {
+  ledgerId          String      @id @default(uuid())
+  user              User        @relation(fields: [userId], references: [userId])
+  userId            String      
+  DateTime          DateTime    @default(now())
+  token             Token
+  balance_before    Decimal
+  balance_after     Decimal
+  moved_value       Decimal
+  transaction_type  TransactionType
+}
+
 enum Role {
   USER
   ADMIN
@@ -49,4 +67,12 @@ enum Token {
   BRL
   BTC
   ETH
+}
+
+enum TransactionType {
+  DEPOSIT
+  SWAP_IN
+  SWAP_OUT
+  SWAP_FEE
+  WITHDRAWAL
 }
