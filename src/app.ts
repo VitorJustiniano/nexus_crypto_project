@@ -7,6 +7,9 @@ import { walletRoutes } from './modules/wallet/wallet.routes'
 import { webhooksRoutes } from './modules/webhook/webhook.routes'
 import { swapRoutes } from './modules/swap/swap.routes'
 import { withdrawalRoutes } from './modules/withdrawal/withdrawal.routes'
+import { ledgerRoutes } from './modules/ledger/ledger.routes'
+import { transactionRoutes } from './modules/transaction/transaction.routes'
+
 
 
 export async function buildApp() {
@@ -23,6 +26,8 @@ export async function buildApp() {
   await app.register(webhooksRoutes)
   await app.register(swapRoutes)
   await app.register(withdrawalRoutes)
+  await app.register(ledgerRoutes)
+  await app.register(transactionRoutes)
 
   return app
 }

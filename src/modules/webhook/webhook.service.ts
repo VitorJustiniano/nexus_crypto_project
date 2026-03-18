@@ -43,6 +43,13 @@ export async function deposit(userId: string, amount: number, token: Token, idem
             moved_value: amount,
             token
         }}),
+        prisma.transaction.create({data: {
+            userId,
+            toToken: token,
+            toAmount: amount,
+            fee: 0,
+            transaction_type: TransactionType.DEPOSIT,
+        }})
     ])
     
     return legder[2]

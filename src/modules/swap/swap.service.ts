@@ -122,6 +122,16 @@ export async function executeSwap(fromToken: Token, toToken: Token, amount: numb
                         moved_value: fee 
                     }
                 }),
+            prisma.transaction.create({data: {
+            userId,
+            fromToken: fromToken,
+            toToken: toToken,
+            fromAmount: amount,
+            toAmount: finalAmount,
+            fee: fee,
+            transaction_type: TransactionType.SWAP,
+            }
+        }),
     ])
     return legder
 }

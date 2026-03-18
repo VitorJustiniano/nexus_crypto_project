@@ -14,21 +14,22 @@ datasource db {
 }
 
 model User {
-  userId    String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  email     String    @unique
-  password  String    
-  name      String?
-  role      Role     @default(USER)
-  wallet    Wallet?
-  ledger    Ledger[]    
+  userId        String             @id @default(uuid())
+  createdAt     DateTime           @default(now())
+  email         String             @unique
+  password      String    
+  name          String?
+  role          Role               @default(USER)
+  wallet        Wallet?
+  ledger        Ledger[]
+  transaction   Transaction[]
 }
 
 model Wallet {
-  walletId        Int         @id @default(autoincrement())
-  user            User        @relation(fields: [userId], references: [userId])
-  userId          String      @unique
-  createdAt       DateTime    @default(now())
+  walletId        Int               @id @default(autoincrement())
+  user            User              @relation(fields: [userId], references: [userId])
+  userId          String            @unique
+  createdAt       DateTime          @default(now())
   walletBalance   WalletBalance[]
 }
 
@@ -58,6 +59,19 @@ model Ledger {
   transaction_type  TransactionType
 }
 
+model Transaction {
+  transactionId     String          @id @default(uuid())
+  user              User            @relation(fields: [userId], references: [userId])
+  userId            String  
+  transaction_type  TransactionType
+  fromToken         Token?
+  toToken           Token?
+  fromAmount        Decimal?
+  toAmount          Decimal?
+  fee               Decimal?
+  createdAt         DateTime        @default(now())
+}
+
 enum Role {
   USER
   ADMIN
@@ -75,4 +89,5 @@ enum TransactionType {
   SWAP_OUT
   SWAP_FEE
   WITHDRAWAL
+  SWAP
 }
