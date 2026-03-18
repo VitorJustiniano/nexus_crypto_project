@@ -5,6 +5,7 @@ import jwt from '@fastify/jwt'
 import { env } from 'node:process'
 import { walletRoutes } from './modules/wallet/wallet.routes'
 import { webhooksRoutes } from './modules/webhook/webhook.routes'
+import { swapRoutes } from './modules/swap/swap.routes'
 
 
 export async function buildApp() {
@@ -19,6 +20,7 @@ export async function buildApp() {
   await app.register(authRoutes)
   await app.register(walletRoutes)
   await app.register(webhooksRoutes)
+  await app.register(swapRoutes)
 
   return app
 }
