@@ -34,6 +34,13 @@ export async function withdraw(userId: string, amount: number, token: Token) {
             moved_value: amount,
             token
         }}),
+        prisma.transaction.create({data: {
+            userId,
+            fromToken: token,
+            fromAmount: amount,
+            fee: 0,
+            transaction_type: TransactionType.WITHDRAWAL,
+        }})
     ])
     return legder[1]
 }
